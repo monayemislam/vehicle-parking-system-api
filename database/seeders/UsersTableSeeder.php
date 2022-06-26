@@ -15,16 +15,19 @@ class UsersTableSeeder extends Seeder
      */
     public function run()
     {
-        // DB::table('users')->insert([
-        //     'name'=>Str::random(5),
-        //     'email'=>Str::random(5).'@gmail.com',
-        //     'password'=>Hash::make('tamal123')
-        // ]);
-
         DB::table('users')->insert([
-            'name'=>'Rahi',
-            'email'=>'rahi@gmail.com',
+            'name'=>Str::random(5),
+            'role'=>3,
+            'address'=>Str::random(10),
+            'mobile'=>'01725677811',
+            'email'=>Str::random(5).'@gmail.com',
             'password'=>Hash::make('tamal123')
         ]);
+
+        // DB::table('users')->insert([
+        //     'name'=>'Rahi',
+        //     'email'=>'rahi@gmail.com',
+        //     'password'=>Hash::make('tamal123')
+        // ]);
     }
 }
