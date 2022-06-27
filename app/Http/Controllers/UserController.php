@@ -46,13 +46,17 @@ class UserController extends Controller
       $registerInfo = $request->validate([
          'name'=>'required|string|max:255',
          'email'=>'required|string|email|unique:users,email',
-         'password'=>'required|string'
+         'password'=>'required|string',
+         'address'=>'required|string',
+         'mobile'=>'required|string'
       ]);
 
       $user = User::create([
          'name'=>$registerInfo['name'],
          'email'=>$registerInfo['email'],
-         'password'=>Hash::make($registerInfo['password'])
+         'password'=>Hash::make($registerInfo['password']),
+         'address'=>$registerInfo['address'],
+         'mobile'=>$registerInfo['mobile']
       ]);
       
       $generateToken = $user->createToken('user_token')->plainTextToken;
