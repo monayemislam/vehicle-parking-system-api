@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Vehicle;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\Vehicle\VehicleType;
+use Illuminate\Support\Facades\Auth;
 
 class VehicleTypeController extends Controller
 {
@@ -15,9 +16,10 @@ class VehicleTypeController extends Controller
      */
     public function index()
     {
+
         $vehicleTypes = VehicleType::all();
         return response()->json([
-            'message'=>"Hi ! I am working !",
+            'message'=>"Vehicle List",
             'data'=>$vehicleTypes
         ]);
     }
