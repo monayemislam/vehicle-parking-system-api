@@ -21,12 +21,12 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 });
 
 //Restricted Routes
-Route::group(['middleware'=>['auth:sanctum']],function(){
-    Route::post('/logout',[UserController::class,'logout']);
+Route::group(['middleware'=>['auth:sanctum','isAdmin']],function(){
     Route::get('/vehicleType',[VehicleTypeController::class,'index']);
 });
 //Open Routes
+Route::post('/logout',[UserController::class,'logout']);
 Route::post('/login',[UserController::class,'login']);
 Route::post('/register',[UserController::class,'register']);
 
-
+ 
