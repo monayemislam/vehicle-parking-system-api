@@ -1,9 +1,11 @@
 <?php
 
+
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\Vehicle\VehicleTypeController;
+use App\Http\Controllers\Space\SpaceTypeController;
 
 /*
 |--------------------------------------------------------------------------
@@ -22,11 +24,19 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 
 //Restricted Routes
 Route::group(['middleware'=>['auth:sanctum','isAdmin']],function(){
+    Route::post('/logout',[UserController::class,'logout']);
     Route::get('/vehicleType',[VehicleTypeController::class,'index']);
+
+    //Space Type 
+    Route::get('/spaceType',[SpaceTypeController::class,'index']);
+    Route::post('/create-space-type',[SpaceTypeController::class,'store']);
+    Route::get('/show-space-type/{id}',[SpaceTypeController::class,'show']);
+    Route::delete('/delete-space-type/{id}',[SpaceTypeController::class,'destroy']);
+    Route::put('/update-space-type/{id}',[SpaceTypeController::class,'update']);
 });
 //Open Routes
-Route::post('/logout',[UserController::class,'logout']);
 Route::post('/login',[UserController::class,'login']);
 Route::post('/register',[UserController::class,'register']);
+ 
 
  
