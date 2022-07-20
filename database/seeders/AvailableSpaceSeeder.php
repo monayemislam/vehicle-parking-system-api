@@ -16,11 +16,12 @@ class AvailableSpaceSeeder extends Seeder
     public function run()
     {
         DB::table('available_spaces')->insert([
-            'space_type_id'=>2,
+            'space_name'=>"My Space 2",
+            'space_type_id'=>1,
             'user_id'=>3,
-            'latitude'=>'26.412806',
-            'longitude'=>'70.766330',
-            'status'=>false,
+            'latitude'=>'76.412806',
+            'longitude'=>'80.766330',
+            'status'=>true,
             'comments'=>Str::random(20)
         ]);
     }

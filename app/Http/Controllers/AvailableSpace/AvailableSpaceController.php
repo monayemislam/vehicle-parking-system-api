@@ -54,7 +54,25 @@ class AvailableSpaceController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $availableSpaceInfo = $request->validate([
+            'space_name'=>'string|required|unique:available_spaces|max:255',
+            'space_type_id'=>'integer|required',
+            'user_id'=>'integer|required',
+            'latitude'=>'string|required',
+            'longitude'=>'string|required',
+            'status'=>'boolean|required',
+            'comments'=>'string|required'
+        ]);
+
+        $newAvailableSpace = AvailableSpace::create($request->all());
+
+        return response()->json([
+            'status'=>true,
+            'message'=>'You have added a Space Successfully',
+            'data'=>$newAvailableSpace
+        ]);
+
+
     }
 
     /**
