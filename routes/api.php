@@ -1,11 +1,12 @@
 <?php
 
-
+use App\Http\Controllers\AvailableSpace\AvailableSpaceController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\Vehicle\VehicleTypeController;
 use App\Http\Controllers\Space\SpaceTypeController;
+use App\Models\User;
 
 /*
 |--------------------------------------------------------------------------
@@ -22,9 +23,12 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
     return $request->user();
 });
 
-//Restricted Routes
+//Restricted Routes-Admin
 Route::group(['middleware'=>['auth:sanctum','isAdmin']],function(){
+
     Route::post('/logout',[UserController::class,'logout']);
+
+    //vehicle Type
     Route::get('/vehicleType',[VehicleTypeController::class,'index']);
 
     //Space Type 
@@ -34,9 +38,21 @@ Route::group(['middleware'=>['auth:sanctum','isAdmin']],function(){
     Route::delete('/delete-space-type/{id}',[SpaceTypeController::class,'destroy']);
     Route::put('/update-space-type/{id}',[SpaceTypeController::class,'update']);
 });
+
+//Athenticated User's routes
+Route::group(['middleware'=>['auth:sanctum']],function(){
+
+    //User's Available Spaces for rent
+    Route::get('/getSpaces',[AvailableSpaceController::class,'index']);
+    
+});
+
+
 //Open Routes
 Route::post('/login',[UserController::class,'login']);
 Route::post('/register',[UserController::class,'register']);
+
+
  
 
  
