@@ -6,6 +6,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\Vehicle\VehicleTypeController;
 use App\Http\Controllers\Space\SpaceTypeController;
+use App\Models\AvailableSpace\AvailableSpace;
 use App\Models\User;
 
 /*
@@ -43,7 +44,11 @@ Route::group(['middleware'=>['auth:sanctum','isAdmin']],function(){
 Route::group(['middleware'=>['auth:sanctum']],function(){
 
     //User's Available Spaces for rent
-    Route::get('/getSpaces',[AvailableSpaceController::class,'index']);
+    Route::get('/get-available-space',[AvailableSpaceController::class,'index']);
+    Route::post('/create-available-space',[AvailableSpaceController::class,'store']);
+    Route::get('/show-available-space/{id}',[AvailableSpaceController::class,'show']);
+    Route::delete('/delete-available-space/{id}',[AvailableSpaceController::class,'destroy']);
+    Route::put('/update-available-space/{id}',[AvailableSpaceController::class,'update']);
     
 });
 
