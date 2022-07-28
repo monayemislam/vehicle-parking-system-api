@@ -46,6 +46,9 @@ Route::group(['middleware'=>['auth:sanctum']],function(){
     //User's Available Spaces for rent
     Route::get('/get-available-space',[AvailableSpaceController::class,'index']);
     Route::post('/create-available-space',[AvailableSpaceController::class,'store']);
+    Route::get('/show-available-space/{id}',[AvailableSpaceController::class,'show']);
+    Route::delete('/delete-available-space/{id}',[AvailableSpaceController::class,'destroy']);
+    Route::put('/update-available-space/{id}',[AvailableSpaceController::class,'update']);
     
 });
 

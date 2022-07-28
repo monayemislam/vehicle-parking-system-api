@@ -16,8 +16,8 @@ class AvailableSpaceSeeder extends Seeder
     public function run()
     {
         DB::table('available_spaces')->insert([
-            'space_name'=>"My Space 2",
-            'space_type_id'=>1,
+            'space_name'=>"My Home Ground Floor",
+            'space_type_id'=>2,
             'user_id'=>3,
             'latitude'=>'76.412806',
             'longitude'=>'80.766330',
