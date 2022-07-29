@@ -30,7 +30,11 @@ Route::group(['middleware'=>['auth:sanctum','isAdmin']],function(){
     Route::post('/logout',[UserController::class,'logout']);
 
     //vehicle Type
-    Route::get('/vehicleType',[VehicleTypeController::class,'index']);
+    Route::get('/vehicle-type',[VehicleTypeController::class,'index']);
+    Route::get('/vehicle-type/{id}',[VehicleTypeController::class,'show']);
+    Route::delete('/delete-vehicle-type/{id}',[VehicleTypeController::class,'destroy']);
+    Route::post('/create-vehicle-type',[VehicleTypeController::class,'store']);
+    Route::put('/update-vehicle-type/{id}',[VehicleTypeController::class,'update']);
 
     //Space Type 
     Route::get('/spaceType',[SpaceTypeController::class,'index']);

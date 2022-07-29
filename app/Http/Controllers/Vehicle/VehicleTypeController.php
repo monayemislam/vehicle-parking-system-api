@@ -19,6 +19,7 @@ class VehicleTypeController extends Controller
 
         $vehicleTypes = VehicleType::all();
         return response()->json([
+            'status'=>true,
             'message'=>"Vehicle List",
             'data'=>$vehicleTypes
         ]);
@@ -42,7 +43,18 @@ class VehicleTypeController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $request->validate([
+            'name'=>'string|unique:vehicle_types|required',
+            'vehicle_description'=>'string'
+        ]);
+
+        $VehicleTypeData = VehicleType::create($request->all());
+        return response()->json([
+            'status'=>true,
+            'message'=>'Vehicle Type Created Successfully',
+            'data'=>$VehicleTypeData
+        ]);
+
     }
 
     /**
@@ -53,7 +65,23 @@ class VehicleTypeController extends Controller
      */
     public function show($id)
     {
-        //
+        
+        if(VehicleType::where('id',$id)->exists())
+        {
+            $vehicleTypes = VehicleType::where('id',$id)->first();
+            return response()->json([
+                'status'=>true,
+                'message'=>'Vehicle Type found',
+                'data'=>$vehicleTypes
+            ]);
+        }
+        else
+        {
+            return response()->json([
+                'status'=>false,
+                'message'=>'Vehicle Type Not found'
+            ]);
+        }
     }
 
     /**
@@ -76,7 +104,20 @@ class VehicleTypeController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $request->validate([
+            'name'=>'string|unique:vehicle_types',
+            'vehicle_description'=>'string'
+        ]);
+        $vehicleTypeInstance = VehicleType::where('id',$id)->first();
+        $vehicleTypeInstance->name = !empty($request->name) ? $request->name : $vehicleTypeInstance->name;
+        $vehicleTypeInstance->vehicle_description = !empty($request->vehicle_description) ? $request->vehicle_description : $vehicleTypeInstance->name;
+        $vehicleTypeInstance->save();
+
+        return response()->json([
+            'status'=>true,
+            'message'=>'Vehicle Type Updated Successfully',
+            'data'=>$vehicleTypeInstance
+        ]);
     }
 
     /**
@@ -87,6 +128,22 @@ class VehicleTypeController extends Controller
      */
     public function destroy($id)
     {
-        //
+        if(VehicleType::where('id',$id)->exists())
+        {
+            $vehicleTypes = VehicleType::where('id',$id)->first();
+            $vehicleTypes->delete();
+            return response()->json([
+                'status'=>true,
+                'message'=>'Vehicle Type Deleted Successfully',
+                'data'=>$vehicleTypes
+            ]);
+        }
+        else
+        {
+            return response()->json([
+                'status'=>false,
+                'message'=>'Vehicle Type Not found'
+            ]);
+        }
     }
 }
