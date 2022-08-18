@@ -6,6 +6,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\Vehicle\VehicleTypeController;
 use App\Http\Controllers\Space\SpaceTypeController;
+use App\Http\Controllers\PayMethod\PayMethodController;
 use App\Models\AvailableSpace\AvailableSpace;
 use App\Models\User;
 
@@ -42,6 +43,14 @@ Route::group(['middleware'=>['auth:sanctum','isAdmin']],function(){
     Route::get('/show-space-type/{id}',[SpaceTypeController::class,'show']);
     Route::delete('/delete-space-type/{id}',[SpaceTypeController::class,'destroy']);
     Route::put('/update-space-type/{id}',[SpaceTypeController::class,'update']);
+
+    //Payment Method
+    Route::get('/payment-method',[PayMethodController::class,'index']);
+    Route::get('/payment-method/{id}',[PayMethodController::class,'show']);
+    Route::post('/create-payment-method',[PayMethodController::class,'store']);
+    Route::delete('/delete-payment-mehtod/{id}',[PayMethodController::class,'destroy']);
+    Route::put('/update-payment-method/{id}',[PayMethodController::class,'update']);
+
 });
 
 //Athenticated User's routes
