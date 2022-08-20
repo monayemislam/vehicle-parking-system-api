@@ -1,14 +1,14 @@
 <?php
 
 use App\Http\Controllers\AvailableSpace\AvailableSpaceController;
+use App\Http\Controllers\ParkingRequest\ParkingRequestController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\Vehicle\VehicleTypeController;
 use App\Http\Controllers\Space\SpaceTypeController;
 use App\Http\Controllers\PayMethod\PayMethodController;
-use App\Models\AvailableSpace\AvailableSpace;
-use App\Models\User;
+
 
 /*
 |--------------------------------------------------------------------------
@@ -51,6 +51,9 @@ Route::group(['middleware'=>['auth:sanctum','isAdmin']],function(){
     Route::delete('/delete-payment-mehtod/{id}',[PayMethodController::class,'destroy']);
     Route::put('/update-payment-method/{id}',[PayMethodController::class,'update']);
 
+    //Parking Request
+    Route::get('/parking-requests',[ParkingRequestController::class,'adminIndex']);
+
 });
 
 //Athenticated User's routes
@@ -62,6 +65,10 @@ Route::group(['middleware'=>['auth:sanctum']],function(){
     Route::get('/show-available-space/{id}',[AvailableSpaceController::class,'show']);
     Route::delete('/delete-available-space/{id}',[AvailableSpaceController::class,'destroy']);
     Route::put('/update-available-space/{id}',[AvailableSpaceController::class,'update']);
+
+    //Parking Requests
+    Route::post('/create-parking-request',[ParkingRequestController::class,'store']);
+    Route::get('/parking-request',[ParkingRequestController::class,'index']);
     
 });
 
