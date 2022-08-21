@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\AvailableSpace\AvailableSpaceController;
+use App\Http\Controllers\CancelledRequest\CancelledRequestController;
 use App\Http\Controllers\ParkingRequest\ParkingRequestController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
@@ -8,7 +9,7 @@ use App\Http\Controllers\UserController;
 use App\Http\Controllers\Vehicle\VehicleTypeController;
 use App\Http\Controllers\Space\SpaceTypeController;
 use App\Http\Controllers\PayMethod\PayMethodController;
-
+use App\Models\CancelledRequest\CancelledRequest;
 
 /*
 |--------------------------------------------------------------------------
@@ -69,6 +70,10 @@ Route::group(['middleware'=>['auth:sanctum']],function(){
     //Parking Requests
     Route::post('/create-parking-request',[ParkingRequestController::class,'store']);
     Route::get('/parking-request',[ParkingRequestController::class,'index']);
+
+    //Cancelled Requests
+    Route::get('cancelled-request',[CancelledRequestController::class,'index']);
+    Route::post('/create-cancel-request',[CancelledRequestController::class,'store']);
     
 });
 
