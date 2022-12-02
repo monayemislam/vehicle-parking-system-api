@@ -39,14 +39,13 @@ Route::group(['middleware'=>['auth:sanctum','isAdmin']],function(){
     Route::put('/update-vehicle-type/{id}',[VehicleTypeController::class,'update']);
 
     //Space Type 
-    Route::get('/spaceType',[SpaceTypeController::class,'index']);
+    // Route::get('/spaceType',[SpaceTypeController::class,'index']);
     Route::post('/create-space-type',[SpaceTypeController::class,'store']);
     Route::get('/show-space-type/{id}',[SpaceTypeController::class,'show']);
     Route::delete('/delete-space-type/{id}',[SpaceTypeController::class,'destroy']);
     Route::put('/update-space-type/{id}',[SpaceTypeController::class,'update']);
 
     //Payment Method
-    Route::get('/payment-method',[PayMethodController::class,'index']);
     Route::get('/payment-method/{id}',[PayMethodController::class,'show']);
     Route::post('/create-payment-method',[PayMethodController::class,'store']);
     Route::delete('/delete-payment-mehtod/{id}',[PayMethodController::class,'destroy']);
@@ -60,6 +59,9 @@ Route::group(['middleware'=>['auth:sanctum','isAdmin']],function(){
 //Athenticated User's routes
 Route::group(['middleware'=>['auth:sanctum']],function(){
 
+    //space Type
+    Route::get('/spaceType',[SpaceTypeController::class,'index']);
+    
     //User's Available Spaces for rent
     Route::get('/get-available-space',[AvailableSpaceController::class,'index']);
     Route::post('/create-available-space',[AvailableSpaceController::class,'store']);
@@ -74,6 +76,9 @@ Route::group(['middleware'=>['auth:sanctum']],function(){
     //Cancelled Requests
     Route::get('cancelled-request',[CancelledRequestController::class,'index']);
     Route::post('/create-cancel-request',[CancelledRequestController::class,'store']);
+
+    //Payment Method
+    Route::get('/payment-method',[PayMethodController::class,'index']);
     
 });
 
