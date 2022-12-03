@@ -33,6 +33,7 @@ class ParkingRequestController extends Controller
        }
     }
 
+
     public function adminIndex(){
         $parkingRequests = ParkingRequest::with('requestor','availableSpace','paymentMethod')->get();
         return response()->json([
@@ -63,8 +64,10 @@ class ParkingRequestController extends Controller
         $request->validate([
             'requestor_id'=>'required|integer',
             'available_space_id'=>'required|integer',
-            'requestor_latitude'=>'string|required',
-            'requestor_longitude'=>'string|required',
+            // 'requestor_latitude'=>'string|required',
+            // 'requestor_longitude'=>'string|required',
+            'requestor_latitude'=>'required|numeric|between:-90,90',
+            'requestor_longitude'=>'required|numeric|between:-180,180',
             'start_date'=>'date_format:Y-m-d|required|after_or_equal:today',
             'start_time'=>'date_format:H:i:s|required',
             'end_date'=>'date_format:Y-m-d|required|after_or_equal:start_date',

@@ -5,6 +5,7 @@ namespace App\Http\Controllers\AvailableSpace;
 use App\Http\Controllers\Controller;
 use App\Models\AvailableSpace\AvailableSpace;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 
 use function PHPUnit\Framework\isEmpty;
 use function PHPUnit\Framework\isNull;
@@ -38,6 +39,49 @@ class AvailableSpaceController extends Controller
        
         
     }
+
+
+
+    public function nearestParkingSpace($lat,$lng)
+    {
+        $activeUserId = auth()->id();
+
+        if(AvailableSpace::where('user_id',$activeUserId)->exists())
+        {
+            $data = DB::select(DB::raw("SELECT *, 
+            (
+               3959 *
+               acos(cos(radians($lat)) * 
+               cos(radians(latitude)) * 
+               cos(radians(longitude) - 
+               radians($lng)) + 
+               sin(radians($lat)) * 
+               sin(radians(latitude )))
+            ) AS distance 
+            FROM available_spaces 
+            HAVING distance < 28 
+            ORDER BY distance LIMIT 0, 20;"));
+
+            return response()->json([
+                'status'=>true,
+                'lat'=>$lat,
+                'lng'=>$lng,
+                // 'message'=>'Available Space Found',
+                'data'=> $data
+            ]);
+        }
+        else{
+            return response()->json([
+                'status'=>false,
+                'message'=>'Available Space Not Found'
+            ]);
+        }
+       
+        
+    }
+
+
+
 
     /**
      * Show the form for creating a new resource.
